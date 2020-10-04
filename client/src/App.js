@@ -7,13 +7,18 @@ import store from './store'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import ItemModal from './components/ItemModal';
+import { Container } from 'reactstrap'
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
         <AppNavBar />
-        <ShoppingList />
+        <Container>
+          <ItemModal />
+          <ShoppingList />
+        </Container>
       </div>
     </Provider>
   );

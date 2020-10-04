@@ -9,14 +9,17 @@ import {
     CSSTransition,
     TransitionGroup
 } from 'react-transition-group'
-import { v4 as uuid } from 'uuid'
 import { connect } from 'react-redux'
-import { getItems } from '../actions/item.actions'
+import { getItems, deleteItem } from '../actions/item.actions'
 import PropTypes from 'prop-types'
 
 class ShoppingList extends Component {
     componentDidMount(){
         this.props.getItems()
+    }
+
+    onDeleteClick = (id) => {
+        this.props.deleteItem(id)
     }
 
     render(){
@@ -31,7 +34,7 @@ class ShoppingList extends Component {
                         const name = prompt('Enter Item')
                         if(name){
                             this.setState(state => ({
-                                items: [...state.items, { id: uuid(), name }]
+                                // items: [...state.items, { id: uuid(), name }]
                             }), () => console.log(" ITEM STATE ", this.state.item))
                         }
                     }}
@@ -45,11 +48,7 @@ class ShoppingList extends Component {
                                         className="remove-btn" 
                                         color="danger" 
                                         size="sm"
-                                        onClick={() => {
-                                            this.setState(state => ({
-                                                items: state.items.filter(item => item.id !== id)
-                                            }))
-                                        }}
+                                        onClick={this.onDeleteClick.bind(this, id)}
                                     >&times;</Button>
                                     {name}
                                 </ListGroupItem>
@@ -71,4 +70,6 @@ const mapStateToProps = (state) => ({
     item: state.item
 })
 
-export default connect(mapStateToProps, { getItems })(ShoppingList)
+export default connect(mapStateToProps, 
+    { getItems, deleteItem }
+)(ShoppingList)
