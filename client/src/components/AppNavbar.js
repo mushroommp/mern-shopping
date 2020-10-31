@@ -9,7 +9,6 @@ import {
     NavLink,
     Container
 } from 'reactstrap'
-import { render } from 'react-dom'
 
 class AppNavbar extends Component {
     state = {
